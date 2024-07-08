@@ -1,6 +1,6 @@
 # O2 Fullstack Challenge
 
-Bem-vindo ao desafio de Fullstack da O2 Inc.! Estamos entusiasmados por você estar interessado em se juntar à nossa equipe. Este repositório contém todas as instruções e requisitos necessários para a conclusão do desafio. 
+Bem-vindo ao desafio de Fullstack da O2 Inc.! Estamos felizes por você estar interessado em se juntar à nossa equipe. Este repositório contém todas as instruções e requisitos necessários para a conclusão do desafio. 
 
 ## Sobre a O2 Inc.
 
@@ -29,4 +29,5 @@ Se você tiver qualquer dúvida durante o processo de implementação, sinta-se 
 
 ## Boa sorte!
 
-Estamos ansiosos para ver seu trabalho e discutir seu potencial para se juntar à nossa equipe. Boa sorte e feliz codificação!
+Estamos ansiosos para ver seu trabalho e discutir seu potencial para se juntar à nossa equipe. 
+Boa sorte!
