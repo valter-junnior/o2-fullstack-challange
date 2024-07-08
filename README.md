@@ -1,2 +1,32 @@
-# o2-fullstack-challange
-Desafio técnico para vaga de fullstack 
+# O2 Fullstack Challenge
+
+Bem-vindo ao desafio de Fullstack da O2 Tech! Estamos entusiasmados por você estar interessado em se juntar à nossa equipe. Este repositório contém todas as instruções e requisitos necessários para a conclusão do desafio. 
+
+## Sobre a O2 Tech
+
+Estamos construindo uma nova área de tecnologia e engenharia na O2 Tech, focada em criar uma cultura de desenvolvimento colaborativo. Nosso objetivo é formar um time de engenharia onde cada membro esteja dedicado a se desenvolver, trazer ideias inovadoras e ter a oportunidade de crescer profissionalmente. Valorizamos a criatividade, a inovação e o aprendizado contínuo.
+
+## Sobre o Desafio
+
+O objetivo deste desafio é desenvolver um sistema de gestão de estoque que permita o cadastro de produtos, registro de movimentações de estoque e geração de relatórios. Queremos avaliar suas habilidades em design de aplicação, qualidade do código, arquitetura e documentação.
+
+## Tecnologias Requeridas
+
+- **Front-end:** React
+- **Back-end:** TypeScript, Python, Java ou a linguagem de sua preferência, desde que acompanhada de um README detalhado explicando o funcionamento da aplicação.
+- **Banco de Dados:** Banco de dados relacional (MySQL, PostgreSQL, etc.)
+
+## Processo de Submissão
+
+1. Faça um fork deste repositório.
+2. Implemente a solução conforme descrito no arquivo [DESAFIO.md](https://github.com/O2-Tech/o2-fullstack-challange/blob/main/DESAFIO.md).
+3. Garanta que todas as dependências e instruções de configuração estejam claramente documentadas.
+4. Envie o link do seu repositório forkado para avaliação.
+
+## Dúvidas?
+
+Se você tiver qualquer dúvida durante o processo de implementação, sinta-se à vontade para entrar em contato comigo através do [LinkedIn](https://www.linkedin.com/in/jgabrielfreitas/).
+
+## Boa sorte!
+
+Estamos ansiosos para ver seu trabalho e discutir seu potencial para se juntar à nossa equipe. Boa sorte e feliz codificação!
