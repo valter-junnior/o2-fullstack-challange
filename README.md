@@ -1,10 +1,10 @@
 # O2 Fullstack Challenge
 
-Bem-vindo ao desafio de Fullstack da O2 Tech! Estamos entusiasmados por você estar interessado em se juntar à nossa equipe. Este repositório contém todas as instruções e requisitos necessários para a conclusão do desafio. 
+Bem-vindo ao desafio de Fullstack da O2 Inc.! Estamos entusiasmados por você estar interessado em se juntar à nossa equipe. Este repositório contém todas as instruções e requisitos necessários para a conclusão do desafio. 
 
-## Sobre a O2 Tech
+## Sobre a O2 Inc.
 
-Estamos construindo uma nova área de tecnologia e engenharia na O2 Tech, focada em criar uma cultura de desenvolvimento colaborativo. Nosso objetivo é formar um time de engenharia onde cada membro esteja dedicado a se desenvolver, trazer ideias inovadoras e ter a oportunidade de crescer profissionalmente. Valorizamos a criatividade, a inovação e o aprendizado contínuo.
+Estamos construindo uma nova área de tecnologia e engenharia na O2 Inc., focada em criar uma cultura de desenvolvimento colaborativo. Nosso objetivo é formar um time de engenharia onde cada membro esteja dedicado a se desenvolver, trazer ideias inovadoras e ter a oportunidade de crescer profissionalmente. Valorizamos a criatividade, a inovação e o aprendizado contínuo.
 
 ## Sobre o Desafio
 
