@@ -16,7 +16,15 @@
 
 3. **Relatórios:**
    - Gerar relatórios de estoque atual, movimentações por período e valor total do estoque.
+   - Dashboard com visualização gráfica de vendas por período
+   - Exibir métricas como valor total em estoque (R$) e quantidade total de itens vendidos
+   - Lista dos produtos mais movimentados
 
+4. **Agente de IA:**
+   - Implementar um agente simples que aceite comandos em linguagem natural
+   - Funcionalidades mínimas requeridas:
+     * Consulta de vendas totais em período específico
+     * Cadastro de movimentações de estoque
 
 #### Tecnologias
 

@@ -15,6 +15,17 @@ O objetivo deste desafio é desenvolver um sistema de gestão de estoque que per
 - **Front-end:** React
 - **Back-end:** TypeScript, Python, Java ou a linguagem de sua preferência, desde que acompanhada de um README detalhado explicando o funcionamento da aplicação.
 - **Banco de Dados:** Banco de dados relacional (MySQL, PostgreSQL, etc.)
+- **Agente IA:** Um agente simples capaz de:
+  - Consultar o total de vendas em um determinado período
+  - Realizar cadastro de novas movimentações de estoque através de comandos em linguagem natural
+
+## Visualização de Dados
+
+O sistema deve incluir visualizações básicas dos dados de estoque, como:
+- Gráfico de barras mostrando o valor total de vendas por período
+- Resumo do valor total em estoque (R$)
+- Quantidade total de itens vendidos
+- Dashboard simples com os produtos mais movimentados
 
 ## Processo de Submissão
 
