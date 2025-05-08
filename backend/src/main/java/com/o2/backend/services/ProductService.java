@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 
 @Service
 @AllArgsConstructor
@@ -18,7 +20,7 @@ public class ProductService {
     private final ProductMapper productMapper;
 
     public Page<ProductDTO> paginated(Pageable pageable) {
-        return productRepository.findAll(pageable)
+        return productRepository.findByDeletedAtIsNull(pageable)
                 .map(productMapper::toDTO);
     }
 
@@ -40,7 +42,11 @@ public class ProductService {
     }
 
     public void delete(Long id) {
-        productRepository.deleteById(id);
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
+
+        product.setDeletedAt(LocalDateTime.now());
+        productRepository.save(product);
     }
 }
 

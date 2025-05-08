@@ -25,7 +25,7 @@ public class ProductDTO {
     @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")
     private BigDecimal unitPrice;
 
-    @NotBlank(message = "Category is required")
+    @NotNull(message = "Category is required")
     private String category;
 
     private LocalDateTime createdAt;

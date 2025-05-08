@@ -12,8 +12,10 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 @Component
 @AllArgsConstructor
@@ -29,59 +31,42 @@ public class DataSeeder implements CommandLineRunner {
             return;
         }
 
-        // Criando produtos utilizando o Builder
-        Product product1 = Product.builder()
-                .name("Produto A")
-                .description("Descrição do Produto A")
-                .quantity(100)
-                .unitPrice(BigDecimal.valueOf(20.0))
-                .build();
+        List<Product> products = new ArrayList<>();
 
-        Product product2 = Product.builder()
-                .name("Produto B")
-                .description("Descrição do Produto B")
-                .quantity(200)
-                .unitPrice(BigDecimal.valueOf(30.0))
-                .build();
+        for (int i = 0; i < 100; i++) {
+            Product product = Product.builder()
+                    .name("Produto " + (i + 1))
+                    .description("Descrição do Produto " + (i + 1))
+                    .quantity(Math.abs(new Random().nextInt() % 100))
+                    .unitPrice(BigDecimal.valueOf(20.0))
+                    .build();
 
-        Product product3 = Product.builder()
-                .name("Produto C")
-                .description("Descrição do Produto C")
-                .quantity(150)
-                .unitPrice(BigDecimal.valueOf(50.0))
-                .build();
+            products.add(product);
+        }
 
 
-        // Salvando produtos no banco
-        List<Product> products = Arrays.asList(product1, product2, product3);
         productRepository.saveAll(products);
 
-        // Criando movimentações de estoque (entradas e saídas)
-        StockMovement movement1 = StockMovement.builder()
-                .product(product1)
-                .quantity(10)
-                .date(LocalDate.now())
-                .type(MovementType.ENTRY)
-                .build();
+        List<StockMovement> movements = new ArrayList<>();
 
-        StockMovement movement2 = StockMovement.builder()
-                .product(product2)
-                .quantity(15)
-                .date(LocalDate.now().minusDays(2))
-                .type(MovementType.EXIT)
-                .build();
+        for (int i = 0; i < 100; i++) {
+            Product product = products.get(new Random().nextInt(products.size()));
+            int quantity = Math.abs(new Random().nextInt() % 100);
+            MovementType type = new Random().nextBoolean() ? MovementType.ENTRY : MovementType.EXIT;
 
-        StockMovement movement3 = StockMovement.builder()
-                .product(product3)
-                .quantity(5)
-                .date(LocalDate.now().minusDays(1))
-                .type(MovementType.ENTRY)
-                .build();
+            StockMovement movement = StockMovement.builder()
+                    .product(product)
+                    .quantity(quantity)
+                    .date(LocalDate.now().minusDays(new Random().nextInt(30)))
+                    .type(type)
+                    .build();
 
-        // Salvando movimentações no banco
-        stockMovementRepository.saveAll(Arrays.asList(movement1, movement2, movement3));
+            movements.add(movement);
 
-        // Exibindo mensagem
+        }
+
+        stockMovementRepository.saveAll(movements);
+
         System.out.println("Dados de exemplo inseridos com sucesso!");
     }
 }
