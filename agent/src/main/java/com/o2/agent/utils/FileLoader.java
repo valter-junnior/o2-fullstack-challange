@@ -12,15 +12,6 @@ import java.util.Scanner;
 @Component
 @NoArgsConstructor
 public class FileLoader {
-    /*public String load(String fileName) {
-        ClassPathResource resource = new ClassPathResource(fileName);
-        try {
-            return Files.readString(resource.getFile().toPath(), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }*/
-
     public String load(String fileName) {
         ClassPathResource resource = new ClassPathResource(fileName);
         try (InputStream inputStream = resource.getInputStream()) {
