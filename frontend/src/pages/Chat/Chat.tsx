@@ -7,11 +7,16 @@ import { chatService, type ChatMessage } from "@/services/chatService";
 export default function Chat() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  
+
   useEffect(() => {
-    chatService.connect((newMessage: string) => {
-      setMessages((prevMessages) => [...prevMessages, 
-        { id: new Date().getTime().toString(), sender: "bot", message: newMessage }
+    chatService.connect((message: ChatMessage) => {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          id: new Date().getTime().toString(),
+          sender: "bot",
+          content: message.content,
+        },
       ]);
     });
 
@@ -21,12 +26,15 @@ export default function Chat() {
   }, []);
 
   const handleSendMessage = (message: string) => {
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { id: new Date().getTime().toString(), sender: "user", message: message },
-    ]);
+    const newMessage: ChatMessage = {
+      id: new Date().getTime().toString(),
+      sender: "user",
+      content: message,
+    };
 
-    chatService.sendMessage(message);
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+
+    chatService.sendMessage(newMessage);
   };
 
   return (

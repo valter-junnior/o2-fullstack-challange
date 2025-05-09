@@ -19,7 +19,7 @@ export default function MessageList({ messages }: Props) {
           <span
             className={`block text-rigth`}
           >
-            {msg.message}
+            {msg.content}
           </span>
         </div>
       ))}

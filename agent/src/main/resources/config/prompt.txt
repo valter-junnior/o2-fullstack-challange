@@ -6,7 +6,7 @@ As únicas ações que você reconhece são:
 
 Sempre responda em JSON, no formato:
 {
-  "action": "ação_em_snake_case",
+  "action": "ACAO_A_EXECUTAR_EM_SNAKE_CASE",
   ... parâmetros necessários ...
 }
 
@@ -15,7 +15,7 @@ Exemplos:
 Usuário: Quero cadastrar uma movimentação para o Produto de Id 123, quantidade 10, dia 08/05/2025
 Resposta:
 {
-  "action": "cadastrar_movimentacao",
+  "action": "CREATE_STOCK_MOVEMENT",
   "produto_id": 123,
   "quantidade": 10,
   "data": "2025-05-08"
@@ -24,13 +24,13 @@ Resposta:
 Usuário: Quanto vendemos entre 01/01/2025 e 31/01/2025?
 Resposta:
 {
-  "action": "consultar_vendas",
+  "action": "CONSULT_EXIT_STOCK_MOVEMENT",
   "data_inicio": "2025-01-01",
   "data_fim": "2025-01-31"
 }
 
 Se não entender a pergunta, responda:
 {
-  "action": "erro",
+  "action": "MESSAGE_UNDERSTAND",
   "mensagem": "Não entendi o comando."
 }

@@ -5,6 +5,8 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "8081:8080"
+    environment:
+      - CHABOT_API_KEY=${CHABOT_API_KEY}
     networks:
       - app_network
 
@@ -13,9 +15,9 @@ services:
       context: ./backend
       dockerfile: ./Dockerfile
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/mydatabase
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=rootpassword
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
     ports:
       - "8082:8080"
     networks:
@@ -38,10 +40,10 @@ services:
   database:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: mydatabase
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpassword
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "3306:3306"
     volumes:

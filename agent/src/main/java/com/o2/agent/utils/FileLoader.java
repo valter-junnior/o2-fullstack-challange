@@ -2,14 +2,12 @@ package com.o2.agent.utils;
 
 import lombok.NoArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
-@Component
 @NoArgsConstructor
 public class FileLoader {
     public String load(String fileName) {
