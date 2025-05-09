@@ -1,4 +1,4 @@
-package com.o2.backend.dtos;
+package com.o2.agent.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,11 +7,11 @@ import java.util.Map;
 
 @Data
 @AllArgsConstructor
-public class ExceptionResponse {
+public class ExceptionDTO {
     private String message;
     private Map<String, String> errors;
 
-    public ExceptionResponse(String message) {
+    public ExceptionDTO(String message) {
         this.message = message;
         this.errors = null;
     }

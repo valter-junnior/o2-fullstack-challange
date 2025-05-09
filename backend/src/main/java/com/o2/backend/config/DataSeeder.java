@@ -6,14 +6,12 @@ import com.o2.backend.models.enums.MovementType;
 import com.o2.backend.repositories.ProductRepository;
 import com.o2.backend.repositories.StockMovementRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 

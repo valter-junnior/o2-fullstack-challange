@@ -6,5 +6,5 @@ RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
-COPY --from=build /app/target/url-shortener-*.jar app.jar
+COPY --from=build /app/target/backend-*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -22,6 +22,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   urlEndpoint: string;
   refreshTrigger?: any;
+  showFilters?: boolean;
   handleEdit?: (data: any) => void;
   handleDelete?: (id: any) => void;
 }
@@ -30,6 +31,7 @@ export function AppDataTable<TData, TValue>({
   columns,
   urlEndpoint,
   refreshTrigger,
+  showFilters,
   handleEdit,
   handleDelete,
 }: DataTableProps<TData, TValue>) {
@@ -38,45 +40,58 @@ export function AppDataTable<TData, TValue>({
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
-  useEffect(() => {
-    DataService.getPaginated(urlEndpoint, { page, size: pageSize }).then(
-      (res) => {
+  const [startAt, setStartAt] = useState<string>("");
+  const [endAt, setEndAt] = useState<string>("");
+
+  const fetchData = () => {
+    DataService.get(urlEndpoint, { page, size: pageSize, startAt, endAt })
+      .then((res) => {
         setResponse(res);
         setData(res.content);
-      }
-    );
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
   }, [page, pageSize, refreshTrigger]);
 
   const fullColumns = [
     ...columns,
-    {
-      id: "actions",
-      header: "Ações",
-      cell: ({ row } : any) => (
-        <div className="flex gap-2">
-          {handleEdit && (
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => handleEdit(row.original)}
-            >
-              <PencilIcon className="w-4 h-4 mr-1" />
-              Editar
-            </Button>
-          )}
-          {handleDelete && (
-            <Button
-              size="sm"
-              variant="destructive"
-              onClick={() => handleDelete(row.original.id)}
-            >
-              <TrashIcon className="w-4 h-4 mr-1" />
-              Deletar
-            </Button>
-          )}
-        </div>
-      ),
-    },
+    ...(handleEdit || handleDelete
+      ? [
+          {
+            id: "actions",
+            header: "Ações",
+            cell: ({ row }: any) => (
+              <div className="flex gap-2">
+                {handleEdit && (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleEdit(row.original)}
+                  >
+                    <PencilIcon className="w-4 h-4 mr-1" />
+                    Editar
+                  </Button>
+                )}
+                {handleDelete && (
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={() => handleDelete(row.original.id)}
+                  >
+                    <TrashIcon className="w-4 h-4 mr-1" />
+                    Deletar
+                  </Button>
+                )}
+              </div>
+            ),
+          },
+        ]
+      : []),
   ];
 
   const table = useReactTable({
@@ -103,6 +118,36 @@ export function AppDataTable<TData, TValue>({
 
   return (
     <div>
+      <div
+        className={`flex gap-4 mb-4 transition-all duration-300 ${
+          showFilters
+            ? "max-h-40 opacity-100"
+            : "max-h-0 opacity-0 overflow-hidden"
+        }`}
+      >
+        <div>
+          <label className="block text-sm font-medium">Start at</label>
+          <input
+            type="date"
+            value={startAt}
+            onChange={(e) => setStartAt(e.target.value)}
+            className="border rounded px-2 py-1 w-full"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium">End at</label>
+          <input
+            type="date"
+            value={endAt}
+            onChange={(e) => setEndAt(e.target.value)}
+            className="border rounded px-2 py-1 w-full"
+          />
+        </div>
+        <Button onClick={fetchData} className="self-end">
+          Filtrar
+        </Button>
+      </div>
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>

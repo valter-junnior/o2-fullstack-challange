@@ -1,3 +1,4 @@
+import Chat from "@/pages/Chat/Chat";
 import { SidebarInset, SidebarProvider } from "../ui/sidebar";
 import { Toaster } from "../ui/sonner";
 import { AppHeader } from "./AppHeader";
@@ -16,6 +17,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
         </div>
+        <Chat />
         <Toaster />
       </SidebarInset>
     </SidebarProvider>

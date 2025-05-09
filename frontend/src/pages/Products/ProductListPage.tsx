@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import AppModal from "@/components/atoms/AppModal";
 import { ProductDeletePage } from "./ProductDeletePage";
+import { PlusIcon } from "lucide-react";
 
 export default function ProductListPage() {
   const [openForm, setOpenForm] = useState(false);
@@ -18,8 +19,13 @@ export default function ProductListPage() {
   return (
     <div className="relative mx-5">
       <div className="container mx-auto space-y-5">
-        <div className="flex justify-end">
-          <Button onClick={toggleForm}>Add Product</Button>
+        <div className="flex items-center justify-between mb-4">
+          <h1 className="text-xl font-semibold">Product</h1>
+          <div className="flex gap-2">
+            <Button onClick={toggleForm}>
+              <PlusIcon />
+            </Button>
+          </div>
         </div>
         <AppDataTable
           columns={[
@@ -42,6 +48,9 @@ export default function ProductListPage() {
             {
               accessorKey: "unitPrice",
               header: "Unit Price",
+              cell: (info) => `R$ ${
+                parseFloat(info.getValue<string>()).toFixed(2)
+              }`,
             },
           ]}
           urlEndpoint="/products"

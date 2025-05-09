@@ -24,6 +24,11 @@ export const navMain = [
     url: "/products",
     icon: Package,
   },
+  {
+    title: "Stock Movements",
+    url: "/stock-movements",
+    icon: Package,
+  }
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

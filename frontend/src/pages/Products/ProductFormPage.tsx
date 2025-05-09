@@ -50,9 +50,9 @@ export default function ProductFormPage({
 
   const onSubmit = (data: ProductFormData) => {
     if (initialData) {
-      DataService.update(`/products/${initialData.id}`, data);
+      DataService.put(`/products/${initialData.id}`, data);
     } else {
-      DataService.store("/products", data);
+      DataService.post("/products", data);
     }
     toast.success("Product saved successfully");
     callbackSubmit();

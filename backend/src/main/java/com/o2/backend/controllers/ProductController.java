@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
@@ -19,6 +21,11 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<Page<ProductDTO>> paginated(Pageable pageable) {
         return ResponseEntity.ok(productService.paginated(pageable));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<ProductDTO>> all() {
+        return ResponseEntity.ok(productService.all());
     }
 
     @PostMapping

@@ -8,6 +8,8 @@ import java.time.LocalDate;
 
 @Data
 public class StockMovementDTO {
+    private Long id;
+
     @NotNull
     private Long productId;
 
@@ -20,5 +22,7 @@ public class StockMovementDTO {
 
     @NotNull
     private MovementType type;
+
+    private ProductDTO product;
 }
 

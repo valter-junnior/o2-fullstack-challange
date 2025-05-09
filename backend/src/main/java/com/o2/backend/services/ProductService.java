@@ -10,7 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -19,9 +21,28 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
+    public List<ProductDTO> all() {
+        return productRepository.findAll()
+                .stream()
+                .map(productMapper::toDTO)
+                .toList();
+    }
+
     public Page<ProductDTO> paginated(Pageable pageable) {
-        return productRepository.findByDeletedAtIsNull(pageable)
+        return productRepository.findAll(pageable)
                 .map(productMapper::toDTO);
+    }
+
+    public BigDecimal getTotalPrice() {
+        return productRepository.findAll().stream()
+                .map(product -> product.getUnitPrice().multiply(new BigDecimal(product.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public Integer getTotalQuantity() {
+        return productRepository.findAll().stream()
+                .map(Product::getQuantity)
+                .reduce(0, Integer::sum);
     }
 
     public ProductDTO create(ProductDTO productDto) {

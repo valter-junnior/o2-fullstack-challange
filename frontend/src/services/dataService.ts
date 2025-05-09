@@ -16,18 +16,18 @@ export interface Paginable<T> {
 }
 
 export const DataService = {
-  async getPaginated(url: string, params: any) {
+  async get(url: string, params: any) {
     const response = await api.get(url, { params });
 
-    return response.data as Paginable<any>;
+    return response.data;
   },
 
-  async store(url: string, data: any) {
+  async post(url: string, data: any) {
     const response = await api.post(url, data);
     return response.data;
   },
 
-  async update(url: string, data: any) {
+  async put(url: string, data: any) {
     const response = await api.put(url, data);
     return response.data;
   },
