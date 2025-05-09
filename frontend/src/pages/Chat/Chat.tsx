@@ -1,40 +1,45 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MessageCircle } from "lucide-react";
 import ChatWindow from "./ChatWindow";
 import { Button } from "@/components/ui/button";
-import { chatService, type ChatMessage } from "@/services/chatService";
+import ChatService, { buildChatService, type ChatMessage } from "@/services/chatService";
 
 export default function Chat() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const chatServiceRef = useRef<ChatService | null>(null);
+
+  const addMessage = (message: ChatMessage) => {
+    const newMessage: ChatMessage = {
+      id: message.id ?? new Date().getTime().toString(),
+      sender: message.sender ?? "bot",
+      content: message.content,
+    };
+
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+  };
 
   useEffect(() => {
-    chatService.connect((message: ChatMessage) => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          id: new Date().getTime().toString(),
-          sender: "bot",
-          content: message.content,
-        },
-      ]);
+    chatServiceRef.current = buildChatService((message: ChatMessage) => {
+      addMessage(message);
     });
 
+    chatServiceRef.current.connect();
+
     return () => {
-      chatService.disconnect();
+      chatServiceRef.current?.disconnect();
     };
   }, []);
 
   const handleSendMessage = (message: string) => {
-    const newMessage: ChatMessage = {
-      id: new Date().getTime().toString(),
+    const newMessage = {
       sender: "user",
       content: message,
     };
 
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
+    addMessage(newMessage as ChatMessage);
 
-    chatService.sendMessage(newMessage);
+    chatServiceRef.current?.sendMessage(newMessage as ChatMessage);
   };
 
   return (

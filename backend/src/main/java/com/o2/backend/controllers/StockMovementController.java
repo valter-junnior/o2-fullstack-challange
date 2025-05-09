@@ -1,6 +1,7 @@
 package com.o2.backend.controllers;
 
 import com.o2.backend.dtos.StockMovementDTO;
+import com.o2.backend.dtos.TotalExitMovementsDTO;
 import com.o2.backend.services.StockMovementService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -39,5 +40,11 @@ public class StockMovementController {
         return ResponseEntity.ok(movementService.getMovementsByProduct(productId));
     }
 
+    @GetMapping("/total-exit")
+    public ResponseEntity<TotalExitMovementsDTO> getTotalExitMovements(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startAt,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endAt) {
+        return ResponseEntity.ok(movementService.getTotalExitMovements(startAt, endAt));
+    }
 }
 

@@ -17,8 +17,13 @@ class ChatService {
   private maxReconnectAttempts: number = 5;
   private reconnectInterval: number = 1000;
   private messageQueue: ChatMessage[] = []; 
+  private onMessageReceived: MessageCallback;
 
-  connect(onMessageReceived: MessageCallback) {
+  constructor(onMessageReceived: MessageCallback) {
+    this.onMessageReceived = onMessageReceived;
+  }
+
+  connect() {
     const socket = new SockJS(config.ws.url);
     this.stompClient = new Client({
       webSocketFactory: () => socket,
@@ -26,7 +31,7 @@ class ChatService {
       onConnect: (frame) => {
         console.log("Conectado ao WebSocket:", frame);
         this.reconnectAttempts = 0;
-        this.subscribeToMessages(onMessageReceived);
+        this.subscribeToMessages();
         this.flushMessageQueue();
       },
       onStompError: (frame) => {
@@ -49,16 +54,14 @@ class ChatService {
 
       setTimeout(() => {
         console.log("Tentando reconectar...");
-        this.connect((message: ChatMessage) => {
-          console.log("Mensagem recebida após reconexão:", message);
-        });
+        this.connect();
       }, this.reconnectInterval * this.reconnectAttempts);
     } else {
       console.error("Número máximo de tentativas de reconexão atingido.");
     }
   }
 
-  private subscribeToMessages(onMessageReceived: MessageCallback) {
+  private subscribeToMessages() {
     if (this.stompClient) {
       this.subscription = this.stompClient.subscribe(
         config.ws.topic,
@@ -66,7 +69,7 @@ class ChatService {
           if (message.body) {
             try {
               const parsedMessage: ChatMessage = JSON.parse(message.body);
-              onMessageReceived(parsedMessage);
+              this.onMessageReceived(parsedMessage);
             } catch (error) {
               console.error("Erro ao processar a mensagem recebida", error);
             }
@@ -110,4 +113,9 @@ class ChatService {
   }
 }
 
-export const chatService = new ChatService();
+export function buildChatService(onMessageReceived: MessageCallback): ChatService {
+  return new ChatService(onMessageReceived);
+}
+
+export default ChatService;
+

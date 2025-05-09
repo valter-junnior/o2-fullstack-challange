@@ -38,6 +38,7 @@ public class ReportController {
     public List<ExitPerPeriodDTO> getSalesPerPeriod(
             @RequestParam LocalDate startDate,
             @RequestParam LocalDate endDate) {
+
         return stockMovementService.getExitPerPeriod(startDate, endDate);
     }
 }

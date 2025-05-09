@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import AppModal from "@/components/atoms/AppModal";
 import { FilterIcon, PlusIcon } from "lucide-react";
-import { format, parseISO } from 'date-fns';
+import { format, parseISO } from "date-fns";
 
 export default function StockMovementListPage() {
   const [openForm, setOpenForm] = useState(false);
@@ -53,8 +53,12 @@ export default function StockMovementListPage() {
               accessorKey: "date",
               header: "Date",
               cell: (info) => {
-                const date = parseISO(info.row.original.date);
-                return format(date, 'dd/MM/yyyy');
+                if (info.row.original.date) {
+                  const date = parseISO(info.row.original.date);
+                  return format(date, "dd/MM/yyyy");
+                }
+
+                return "N/A";
               },
             },
           ]}

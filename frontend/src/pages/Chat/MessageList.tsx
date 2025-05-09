@@ -10,17 +10,16 @@ export default function MessageList({ messages }: Props) {
       {messages.map((msg) => (
         <div
           key={msg.id}
-          className={`p-2 rounded-xl text-white pl-2 pr-5 w-fit ${
-            msg.sender === "user"
-              ? "bg-primary self-end ml-auto"
-              : "bg-gray-500 self-start mr-auto"
+          className={`p-2 rounded-xl text-white pl-2 pr-5 max-w-[70%] ${
+            msg.sender === "user" ? "bg-primary ml-auto" : "bg-gray-500 mr-auto"
           }`}
         >
-          <span
-            className={`block text-rigth`}
-          >
-            {msg.content}
-          </span>
+          {msg.content.split("\n").map((line, index) => (
+            <span key={index} className="block break-words">
+              {line}
+              <br />
+            </span>
+          ))}
         </div>
       ))}
     </div>

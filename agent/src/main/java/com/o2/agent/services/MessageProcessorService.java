@@ -1,9 +1,6 @@
 package com.o2.agent.services;
 
-import com.o2.agent.dtos.ActionConsultExitMovementDTO;
-import com.o2.agent.dtos.ActionCreateMovementDTO;
-import com.o2.agent.dtos.ActionResponseDTO;
-import com.o2.agent.dtos.MessageDTO;
+import com.o2.agent.dtos.*;
 import com.o2.agent.enums.ActionEnum;
 import com.o2.agent.exceptions.InvalidResponseException;
 import lombok.AllArgsConstructor;
@@ -19,6 +16,7 @@ import java.util.Optional;
 public class MessageProcessorService {
     private final ObjectMapper objectMapper;
     private final StockMovementService stockMovementService;
+    private final ReportMessageService reportMessageService;
 
     public MessageDTO process(String response) {
         try {
@@ -36,10 +34,23 @@ public class MessageProcessorService {
     private String handleAction(ActionResponseDTO actionResponseDTO) {
         switch (actionResponseDTO.getAction()) {
             case CREATE_STOCK_MOVEMENT -> {
-                return stockMovementService.create((ActionCreateMovementDTO) actionResponseDTO);
+                StockMovementDTO stockMovementDTO = stockMovementService.create((ActionCreateMovementDTO) actionResponseDTO);
+                return reportMessageService.createMovement(stockMovementDTO);
             }
             case CONSULT_EXIT_STOCK_MOVEMENT -> {
-                return stockMovementService.consultExit((ActionConsultExitMovementDTO) actionResponseDTO);
+                TotalExitMovementsDTO totalExitMovementsDTO = stockMovementService.consultExit((ActionConsultExitMovementDTO) actionResponseDTO);
+
+                return reportMessageService.consultExitMovement(
+                        ((ActionConsultExitMovementDTO) actionResponseDTO).getStartAt(),
+                        ((ActionConsultExitMovementDTO) actionResponseDTO).getEndAt(),
+                        totalExitMovementsDTO.getQuantityExitMovements(),
+                        totalExitMovementsDTO.getPriceExitMovements()
+                );
+            }
+            case MESSAGE_NOT_UNDERSTAND -> {
+                ActionInvalidParameterDTO invalidParameterDTO = (ActionInvalidParameterDTO) actionResponseDTO;
+
+                return invalidParameterDTO.getMessage();
             }
             default -> {
                 return null;
@@ -51,6 +62,7 @@ public class MessageProcessorService {
         Map<String, Class<?>> actionMap = Map.of(
                 ActionEnum.CONSULT_EXIT_STOCK_MOVEMENT.name(), ActionConsultExitMovementDTO.class,
                 ActionEnum.CREATE_STOCK_MOVEMENT.name(), ActionCreateMovementDTO.class,
+                ActionEnum.INVALID_PARAMETER.name(), ActionInvalidParameterDTO.class,
                 ActionEnum.MESSAGE_NOT_UNDERSTAND.name(), Exception.class
         );
 

@@ -3,8 +3,10 @@ package com.o2.backend.services;
 import com.o2.backend.dtos.ExitPerPeriodDTO;
 import com.o2.backend.dtos.StockMovementDTO;
 import com.o2.backend.dtos.TopProductExitDTO;
+import com.o2.backend.dtos.TotalExitMovementsDTO;
 import com.o2.backend.exceptions.InsufficientStockException;
 import com.o2.backend.exceptions.ResourceNotFoundException;
+import com.o2.backend.mappers.ProductMapper;
 import com.o2.backend.mappers.StockMovementMapper;
 import com.o2.backend.models.Product;
 import com.o2.backend.models.StockMovement;
@@ -13,7 +15,9 @@ import com.o2.backend.repositories.ProductRepository;
 import com.o2.backend.repositories.StockMovementRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -27,8 +31,13 @@ public class StockMovementService {
     private StockMovementRepository movementRepository;
     private ProductRepository productRepository;
     private StockMovementMapper stockMovementMapper;
+    private ProductMapper productMapper;
 
     public Page<StockMovementDTO> paginated(Pageable pageable, LocalDate startAt, LocalDate endAt) {
+        if (!pageable.getSort().isSorted()) {
+            pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "id"));
+        }
+
         return movementRepository.findByDateBetween(startAt, endAt, pageable)
                 .map(stockMovementMapper::toDTO);
     }
@@ -53,9 +62,12 @@ public class StockMovementService {
         movement.setProduct(product);
         movement.setQuantity(dto.getQuantity());
         movement.setType(dto.getType());
+        movement.setDate(dto.getDate());
         movementRepository.save(movement);
 
+        dto.setId(movement.getId());
         dto.setProductId(product.getId());
+        dto.setProduct(productMapper.toDTO(product));
         return dto;
     }
 
@@ -83,6 +95,10 @@ public class StockMovementService {
 
     public List<ExitPerPeriodDTO> getExitPerPeriod(LocalDate startDate, LocalDate endDate) {
         return movementRepository.findExitPerPeriod(startDate, endDate);
+    }
+
+    public TotalExitMovementsDTO getTotalExitMovements(LocalDate startAt, LocalDate endAt) {
+        return movementRepository.findTotalExitMovements(startAt, endAt);
     }
 }
 

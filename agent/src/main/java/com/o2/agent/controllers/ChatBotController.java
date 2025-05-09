@@ -20,6 +20,8 @@ public class ChatBotController {
     public void sendMessage(MessageDTO message) {
         String response = chatBotService.sendMessage(message.getContent());
 
+        System.out.println(response);
+
         MessageDTO messageDTO = messageProcessorService.process(response);
 
         messagingTemplate.convertAndSend("/topic/messages", messageDTO);
