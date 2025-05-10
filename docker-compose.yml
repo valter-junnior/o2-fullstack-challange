@@ -6,7 +6,9 @@ services:
     ports:
       - "8081:8080"
     environment:
-      - CHABOT_API_KEY=${CHABOT_API_KEY}
+      - CHATBOT_BACKEND_URL=${CHATBOT_BACKEND_URL}
+      - CHATBOT_API_KEY=${CHATBOT_API_KEY}
+      - SPRING_PROFILES_ACTIVE=prod
     networks:
       - app_network
 
@@ -25,6 +27,24 @@ services:
       - app_network
     depends_on:
       - database
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
+      - VITE_WS_URL=${VITE_WS_URL}
+      - VITE_WS_TOPIC=${VITE_WS_TOPIC}
+      - VITE_WS_SEND=${VITE_WS_SEND}
+      - VITE_LOCAL_STORAGE_KEY=${VITE_LOCAL_STORAGE_KEY}
+    ports:
+      - "3000:80"
+    networks:
+      - app_network
+    depends_on:
+      - agent
+      - backend
 
   nginx:
     image: nginx:latest

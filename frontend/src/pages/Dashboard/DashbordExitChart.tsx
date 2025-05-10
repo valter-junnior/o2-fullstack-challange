@@ -12,7 +12,7 @@ import {
   AreaChart,
 } from "recharts";
 import { DataService } from "@/services/dataService";
-import { format, subDays } from "date-fns";
+import moment from 'moment';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { Select, SelectTrigger } from "@radix-ui/react-select";
 import { SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
@@ -35,8 +35,8 @@ export default function DashboardExitChart() {
   } satisfies ChartConfig
 
   useEffect(() => {
-    const endDate = format(new Date(), "yyyy-MM-dd"); 
-    const startDate = format(subDays(new Date(), parseInt(timeRange)), "yyyy-MM-dd");
+    const endDate = moment().format('YYYY-MM-DD');
+    const startDate = moment().subtract(parseInt(timeRange), 'days').format('YYYY-MM-DD');
 
     DataService.get("/reports/sales", {
       startDate,
