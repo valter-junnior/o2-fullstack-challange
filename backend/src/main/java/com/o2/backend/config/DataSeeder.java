@@ -7,6 +7,7 @@ import com.o2.backend.repositories.ProductRepository;
 import com.o2.backend.repositories.StockMovementRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -17,6 +18,7 @@ import java.util.Random;
 
 @Component
 @AllArgsConstructor
+@Profile("dev")
 public class DataSeeder implements CommandLineRunner {
 
     private ProductRepository productRepository;

@@ -3,6 +3,7 @@ package com.o2.backend.mappers;
 import com.o2.backend.dtos.StockMovementDTO;
 import com.o2.backend.models.StockMovement;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component

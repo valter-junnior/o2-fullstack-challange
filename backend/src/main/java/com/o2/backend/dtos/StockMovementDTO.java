@@ -2,11 +2,15 @@ package com.o2.backend.dtos;
 
 import com.o2.backend.models.enums.MovementType;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class StockMovementDTO {
     private Long id;
 

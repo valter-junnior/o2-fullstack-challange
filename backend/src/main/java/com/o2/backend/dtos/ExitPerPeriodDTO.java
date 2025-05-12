@@ -13,7 +13,7 @@ public class ExitPerPeriodDTO {
     private BigDecimal total;
 
     public ExitPerPeriodDTO(java.sql.Date date, BigDecimal total) {
-        this.date = date.toLocalDate();
+        this.date = date != null ? date.toLocalDate() : null;
         this.total = total;
     }
 }
