@@ -1,44 +1,94 @@
-# O2 Fullstack Challenge
+# <h1 align="center" style="font-weight: bold;">O2 Fulltstack Challange 💻</h1>
 
-Bem-vindo ao desafio de Fullstack da O2 Inc.! Estamos felizes por você estar interessado em se juntar à nossa equipe. Este repositório contém todas as instruções e requisitos necessários para a conclusão do desafio. 
+<p align="center">
+ <a href="#technologies">Technologies</a> • 
+ <a href="#getting-started">Getting Started</a> • 
+ <a href="#api-endpoints">API Endpoints</a> •
+</p>
 
-## Sobre a O2 Inc.
+<p align="center">
+    <b>Backend built with Spring Boot that integrates with Groq API and runs inside a Docker environment.</b>
+</p>
 
-Estamos construindo uma nova área de tecnologia e engenharia na O2 Inc., focada em criar uma cultura de desenvolvimento colaborativo. Nosso objetivo é formar um time de engenharia onde cada membro esteja dedicado a se desenvolver, trazer ideias inovadoras e ter a oportunidade de crescer profissionalmente. Valorizamos a criatividade, a inovação e o aprendizado contínuo.
+---
 
-## Sobre o Desafio
+## 💻 Technologies
 
-O objetivo deste desafio é desenvolver um sistema de gestão de estoque que permita o cadastro de produtos, registro de movimentações de estoque e geração de relatórios. Queremos avaliar suas habilidades em design de aplicação, qualidade do código, arquitetura e documentação.
+- Java 21+
+- Spring Boot
+- MySQL
+- Docker & Docker Compose
+- Nginx
+- React
+- Node.js
 
-## Tecnologias Requeridas
+---
 
-- **Front-end:** React
-- **Back-end:** TypeScript, Python, Java ou a linguagem de sua preferência, desde que acompanhada de um README detalhado explicando o funcionamento da aplicação.
-- **Banco de Dados:** Banco de dados relacional (MySQL, PostgreSQL, etc.)
-- **Agente IA:** Um agente simples capaz de:
-  - Consultar o total de vendas em um determinado período
-  - Realizar cadastro de novas movimentações de estoque através de comandos em linguagem natural
+## 🚀 Getting Started
 
-## Visualização de Dados
+### Prerequisites
 
-O sistema deve incluir visualizações básicas dos dados de estoque, como:
-- Gráfico de barras mostrando o valor total de vendas por período
-- Resumo do valor total em estoque (R$)
-- Quantidade total de itens vendidos
-- Dashboard simples com os produtos mais movimentados
+- [Java 17+](https://adoptium.net/)
+- [Node.js](https://nodejs.org/en/)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [Git](https://git-scm.com/)
 
-## Processo de Submissão
+### Cloning
 
-1. Faça um fork deste repositório.
-2. Implemente a solução conforme descrito no arquivo [DESAFIO.md](https://github.com/O2-Tech/o2-fullstack-challange/blob/main/DESAFIO.md).
-3. Garanta que todas as dependências e instruções de configuração estejam claramente documentadas.
-4. Envie o link do seu repositório forkado para avaliação.
+```bash
+git clone https://github.com/valter-junnior/o2-fullstack-challange
+cd o2-fullstack-challange
+```
 
-## Dúvidas?
+### Config `.env` file
 
-Se você tiver qualquer dúvida durante o processo de implementação, sinta-se à vontade para entrar em contato comigo através do [LinkedIn](https://www.linkedin.com/in/jgabrielfreitas/).
+Create a `.env` file at the root using `.env.example` as reference:
 
-## Boa sorte!
+```env
+SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/mydatabase
+SPRING_DATASOURCE_USERNAME=root
+SPRING_DATASOURCE_PASSWORD=rootpassword
 
-Estamos ansiosos para ver seu trabalho e discutir seu potencial para se juntar à nossa equipe. 
-Boa sorte!
+CHATBOT_BACKEND_URL=http://backend:8080/api
+CHATBOT_API_KEY=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
+
+MYSQL_ROOT_PASSWORD=rootpassword
+MYSQL_DATABASE=mydatabase
+MYSQL_USER=user
+MYSQL_PASSWORD=userpassword
+
+VITE_API_URL=http://localhost/backend/api
+VITE_WS_URL=http://localhost/agent/chat
+VITE_WS_TOPIC=/topic/messages
+VITE_WS_SEND=/app/sendMessage
+VITE_LOCAL_STORAGE_KEY=app-data
+```
+
+### Groq API Key
+
+For the wizard to work properly, you will need a Groq API Key.
+Follow the steps below to generate yours:
+
+1. Visit the Groq website: [https://console.groq.com](https://console.groq.com)
+2. Log in to your account.
+3. In the main panel, click on **API Keys** in the side menu.
+4. Click on the **Generate new key** button
+5. In your `.env` file, set the variable:
+
+   ```dotenv
+   CHABOT_API_KEY=gsk_your_token_here
+   ```
+
+### Running with Docker
+
+```bash
+docker-compose --env-file .env up --build
+```
+
+This will start:
+
+- Agent on port `8081`
+- Backend on port `8082`
+- MySQL database on port `3306`
+- Nginx on port `80`
